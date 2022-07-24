@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
 
-    path('POST/authentication/generate_otp',views.generate_otp),
-    path('POST/authentication/verify_otp',views.verify_otp),
+    path('authentication/generate_otp',views.generate_otp),
+    path('authentication/verify_otp',views.verify_otp),
 
 ]
