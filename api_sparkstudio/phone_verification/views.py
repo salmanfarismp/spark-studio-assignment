@@ -97,6 +97,8 @@ def verify_otp(request):
                 return Response('success',status=status.HTTP_200_OK)
             else:
                 return Response('Invalid OTP',status=status.HTTP_400_BAD_REQUEST)
+        else :
+            return Response('Your OTP has been expired',status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response('Page Not Found',status=status.HTTP_404_NOT_FOUND)
     
