@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view ,permission_classes
 import datetime
 import json
-from .otp import create_otp
+from .otp import *
 from .models import CustomUser
 
 # Create your views here.
@@ -37,7 +37,16 @@ def generate_otp(request):
         request.session['otp_generated_time'] = str(datetime.datetime.now())
         request.session['number_of_attempts'] = 0
         print("OTP is :",otp) # As instructed otp is just printing on console
+
+        
         # send otp in sms using twilio
+
+        # phone = request.data['phone']
+        # phone_number = '+91' + str(phone)
+        # otp_status =  send_otp(request,otp,phone_number)
+        # if otp_status != 'accepted':
+        #     return Response('Error Occured,Try Again Later!',status=status.HTTP_503_SERVICE_UNAVAILABLE)
+
         return Response('success',status=status.HTTP_200_OK)
     return Response('You have exceeded the limit of verification attempts.You can try again Tommorrow',status=status.HTTP_400_BAD_REQUEST)
 
