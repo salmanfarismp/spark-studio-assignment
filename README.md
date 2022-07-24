@@ -11,6 +11,8 @@ You can install all the required dependencies by running
 
 then from the project's root directory you will have to do migrations by running
 
+'python manage.py makemigrations`
+And then
 `python manage.py migrate`
 
 Now You are all set!
