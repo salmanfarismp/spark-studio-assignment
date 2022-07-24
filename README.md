@@ -37,31 +37,31 @@ Now You are all set!
 
 > Response
 
-| HTTP Status Code       | Description |     | Response Data             | 
-| ---                   |    ----  |     |    --                         |
-|    200                 |   OTP generated successfully          |     |       success                            |  
-|  400  | User attempted to <br /> generate OTP more than 10 times   |   |  You have exceeded the limit of verification attempts. <br /> You can try again Tommorrow |
+| HTTP Status Code      | Description                           | Response Data            | 
+| ---                   |    ----                               |         --              |
+|    200                |   OTP generated successfully          |            success      |  
+|  400  | User attempted to generate OTP more than 10 times     |  You have exceeded the limit of verification attempts. You can try again Tommorrow |
 
 
 ### Verifying OTP
 
 | Method | URL                           |
-| ---   |    ---                     |       
+| ---   |    ---                         |       
 | POST   | /authentication/verify_otp:   |
 
 > Request
 
-| Parameter Name              | Description | Type & Length                                          |
-| ---                        |    ----  |          ---                                         |
-|    otp                      |    OTP      |       String                                           |
-|    phone                      |    User's Phone NUmber      |       String                                           |
+| Parameter Name             | Description              | Type & Length                                        |
+| ---                        |    ----                  |          ---                                         |
+|    otp                     |    OTP                   |       String                                         |
+|    phone                   |    User's Phone NUmber   |       String                                         |
 
 > Response
 
-| HTTP Status Code       | Description |     | Response Data     | 
-| ---                   |    ----  |     |    --                 |
-|    200                 |   Phone Number Verified and created <br /> User with given Phone Number         |     |       success   | 
-|    400                 |    User Exists with given phone number         |     |  User Already verified |
-|    400               |   User has more than 3 failed <br /> Attempts to verify OTP   |   |  Maximum verification attempts exceeded |
-|    400                 |    User Entered Wrong OTP       |     |  Invalid OTP |
-|    404                |    User attempted to verify <br /> OTP without generating OTP        |     |  Page Not Found|
+| HTTP StatusCode | Description |     Response Data     | 
+| ---              |    ----  |        --                 |
+|    200           |   Phone Number Verified and created <br /> User with given Phone Number    |       success   | 
+|    400                 |    User Exists with given phone number            |  User Already verified |
+|    400        |   User has more than 3 failed  Attempts to verify OTP      |  Maximum verification attempts exceeded |
+|    400                 |    User Entered Wrong OTP           |  Invalid OTP |
+|    404                |    User attempted to verify OTP without generating OTP         |  Page Not Found|
