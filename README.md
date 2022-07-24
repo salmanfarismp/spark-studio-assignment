@@ -38,7 +38,7 @@ Now You are all set!
 > Response
 
 | HTTP Status Code       | Description |     | Response Data                                                                     | 
-| :---                   |    :----:   |     |    --:                                                                             |
+| ---                   |    ----  |     |    --                                                                            |
 |    200                 |   OTP generated successfully          |     |       success                                                                     |  
 |    400                 |    User attempted to generate OTP more than 10 times         |     |  You have exceeded the limit of verification attempts.You can try again Tommorrow |
 
@@ -46,20 +46,20 @@ Now You are all set!
 ### Verifying OTP
 
 | Method | URL                           |
-| :---   |    ---:                       |       
+| ---   |    ---                     |       
 | POST   | /authentication/verify_otp:   |
 
 > Request
 
 | Parameter Name              | Description | Type & Length                                          |
-| :---                        |    :----:   |          ---:                                          |
+| ---                        |    ----  |          ---                                         |
 |    otp                      |    OTP      |       String                                           |
 |    phone                      |    User's Phone NUmber      |       String                                           |
 
 > Response
 
 | HTTP Status Code       | Description |     | Response Data                                                                     | 
-| :---                   |    :----:   |     |    --:                                                                             |
+| ---                   |    ----  |     |    --                                                                          |
 |    200                 |   Phone Number Verified and created  User with given Phone Number         |     |       success                                                                     |  
 |    400                 |    User Exists with given phone number         |     |  User Already verified |
 
