@@ -6,13 +6,14 @@ from rest_framework.decorators import api_view ,permission_classes
 import datetime
 import json
 from .otp import create_otp
+from .models import CustomUser
 
 # Create your views here.
 
 def check_user_attempt(request):
     if request.session.get('attempt_failed_date') :
         if request.session['attempt_failed_date'] == str(datetime.date.today()):
-            return 0
+            return False
         else:
             del request.session['attempt_failed_date'] 
     if request.session.get('request_count') and request.session['request_count'] < 10: 
@@ -23,18 +24,18 @@ def check_user_attempt(request):
     request.session['request_count'] = request_count
     if request_count >= 10 :
         request.session['attempt_failed_date'] = str(datetime.date.today())
-    return 1
+    return True
 
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def generate_otp(request):
-    # valid_attempt = check_user_attempt(request)
-    valid_attempt = True
+    valid_attempt = check_user_attempt(request)
     if valid_attempt:
         otp = create_otp()
         request.session['otp'] = otp
         request.session['otp_generated_time'] = str(datetime.datetime.now())
+        request.session['number_of_attempts'] = 0
         print("OTP is :",otp) # As instructed otp is just printing on console
         # send otp in sms using twilio
         return Response('success',status=status.HTTP_200_OK)
@@ -52,7 +53,7 @@ def check_otp_expired(request):
     hour = int(time_from_data[0])
     minute = int(time_from_data[1])
     second = int(float(time_from_data[2]))
-    time_that_otp_created =  datetime.datetime(year, month, day, hour, minute, second)
+    time_that_otp_created =  datetime.datetime(year, month, day, hour, minute, second) # date time field creation for comparisons
     current_time = datetime.datetime.now()
     print('current time:', current_time)
     checking_time = current_time -  datetime.timedelta(minutes = 30)
@@ -62,19 +63,28 @@ def check_otp_expired(request):
     else :
         return False
 
-    
-   
 
-
-@api_view(['GET'])
+@api_view(['POST'])
 def verify_otp(request):
+    
+    if  CustomUser.objects.filter(phone_number = request.data['phone']).exists():
+        return Response('User Already verified', status=status.HTTP_400_BAD_REQUEST)
     if request.session.get('otp_generated_time'):
         valid_otp = check_otp_expired(request)
-        print(valid_otp)
-        # phone = request.data['phone']
-        # user_otp = request.data['otp']
-        # created_otp = request.session.get('otp')
-        return Response('success',status=status.HTTP_200_OK)
+        if valid_otp:
+            if request.session['number_of_attempts'] >= 3:
+                return Response('Maximum verification attempts exceeded. ',status=status.HTTP_400_BAD_REQUEST)
+            phone = request.data['phone']
+            user_otp = int(request.data['otp'])
+            created_otp = request.session.get('otp')
+            number_of_attempts = int(request.session['number_of_attempts'])
+            number_of_attempts = number_of_attempts + 1
+            request.session['number_of_attempts'] = number_of_attempts
+            if user_otp == created_otp :
+                CustomUser.objects.create(phone_number=phone) # there is no need of validation for phone number
+                return Response('success',status=status.HTTP_200_OK)
+            else:
+                return Response('Invalid OTP',status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response('Page Not Found',status=status.HTTP_404_NOT_FOUND)
     
