@@ -9,14 +9,6 @@ You can install all the required dependencies by running
 
 `pip install -r requirements.txt`
 
-then from the project's root directory you will have to do migrations by running
-
-`python manage.py makemigrations`
-
-And Then
-
-`python manage.py migrate`
-
 Now You are all set!
 ## Structure
 
