@@ -5,7 +5,7 @@ After you cloned the repository, you want to create a virtual environment, so yo
 `python -m venv env`
 
 After this you will activate your virtual env
->You can install all the required dependencies by running
+You can install all the required dependencies by running
 
 `pip install -r requirements.txt`
 
@@ -54,7 +54,7 @@ Now You are all set!
 | Parameter Name             | Description              | Type & Length                                        |
 | ---                        |    ----                  |          ---                                         |
 |    otp                     |    OTP                   |       String                                         |
-|    phone                   |    User's Phone NUmber   |       String                                         |
+|    phone                   |    User's Phone Number   |       String                                         |
 
 > Response
 
