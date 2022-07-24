@@ -43,7 +43,7 @@ Now You are all set!
 
 | HTTP Status Code      | Description                           | Response Data            | 
 | ---                   |    ----                               |         --              |
-|    200                |   OTP generated successfully          |            success      |  
+|    200                |   OTP generated successfully which is valid for next 30 minutes         |            success      |  
 |  400  | User attempted to generate OTP more than 10 times     |  You have exceeded the limit of verification attempts. You can try again Tommorrow |
 
 
@@ -68,4 +68,5 @@ Now You are all set!
 |    400                 |    User Exists with given phone number            |  User Already verified |
 |    400        |   User has more than 3 failed  Attempts to verify OTP      |  Maximum verification attempts exceeded |
 |    400                 |    User Entered Wrong OTP           |  Invalid OTP |
+|    400                 |     OTP has Expired : 30 minutes over          |  Your OTP has been expired |
 |    404                |    User attempted to verify OTP without generating OTP         |  Page Not Found|
